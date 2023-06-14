@@ -18,10 +18,25 @@ public class Song {
     // Create constructors.
     public Song(String songTitle, String songArtist,
             int songDuration) {
-            // Referencing object.
-            this._songTitle = songTitle;
-            this._songArtist = songArtist;
-            this._songDuration = songDuration;
+        // Referencing object.
+        this._songTitle = songTitle;
+        this._songArtist = songArtist;
+        this._songDuration = songDuration;
+    }
+
+    // Creating method to access.
+    public String getTitle() {
+        return _songTitle;
+    }
+
+    // Creating method to access.
+    public String getArtist() {
+        return _songArtist;
+    }
+    
+    // Creating method to access.
+    public int getDuration() {
+        return _songDuration;
     }
 
     // Method for playing song.

@@ -64,8 +64,14 @@ public class Main {
                 // Creating new instance.
                 User user = new User("Sandy");
 
+                // Creating new instance.
+                Playlist playlist = new Playlist();
+
                 // Call method, add song within playlist class.
                 user.addSong(song);
+
+                // Pass the songs from the User class to the Playlist class
+                playlist.setSongs(user.getSongs());
 
                 // Display to user.
                 System.out.println("Title: " + songTitle);
@@ -76,65 +82,78 @@ public class Main {
                 Scanner userInput = new Scanner(System.in);
                 int userChoice = 0;
 
-                // Usage of loop to execute the many options.
-                do {
-                    // Display choices to user.
-                    System.out.print("Here are the choices you may");
-                    System.out.println(" execute on playlist!");
-                    System.out.println("01 | Play song.");
-                    System.out.println("02 | Shuffling song.");
-                    System.out.println("03 | Repeat song.");
-                    System.out.println("04 | Skip forward.");
-                    System.out.println("05 | Backtrack song.");
-                    System.out.println("06 | Remove track.");
-                    System.out.println("07 | Add song.");
+            // Usage of loop to execute the many options.
+            do {
+                // Play the current song
+                playlist.playCurrentSong();
 
-                    // Display to user.
-                    System.out.print("Enter your choice: ");
-                    System.out.println();
+                // Display choices to user.
+                System.out.print("Here are the choices you may");
+                System.out.println(" execute on playlist!");
+                System.out.println("01 | Play song.");
+                System.out.println("02 | Shuffling song.");
+                System.out.println("03 | Repeat song.");
+                System.out.println("04 | Skip forward.");
+                System.out.println("05 | Backtrack song.");
+                System.out.println("06 | Remove track.");
+                System.out.println("07 | Add song.");
+                System.out.println("0 | Exit program.");
 
-                    try {
-                        // Receive user input & parse input.
-                        userChoice = Integer.parseInt(userInput.nextLine());
+                // Display to user.
+                System.out.print("Enter your choice: ");
+                System.out.println();
+
+                try {
+                    // Receive user input & parse input.
+                    userChoice = Integer.parseInt(userInput.nextLine());
     
-                        // If statement to execute said options.
-                        if (userChoice == 1) {
-                            song.play();
-                        } else if (userChoice == 7) {
-                            // If user would like to add song, 
-                            // assuming valid input.
-                            System.out.print("Enter song details ");
-                            System.out.println("(title, artist, duration): ");
+                    // If statement to execute said options.
+                    if (userChoice == 1) {
+                        playlist.playCurrentSong();
+                    } else if (userChoice == 2) {
+                            playlist.setShuffle(true);
+                    } else if (userChoice == 3) {
+                            playlist.repeatCurrentSong();
+                    } else if (userChoice == 4) {
+                        playlist.skipForward();
+                    } else if (userChoice == 5) {
+                        // To do.
 
-                            // Declare variable.
-                            String songInfo = userInput.nextLine();
+                    } else if (userChoice == 7) {
+                        // If user would like to add song, 
+                        // assuming valid input.
+                        System.out.print("Enter song details ");
+                        System.out.println("(title, artist, duration): ");
 
-                            // Split by spaces.
-                            String[] songData = songInfo.split(", ");
+                        // Declare variable.
+                        String songInfo = userInput.nextLine();
 
-                            // Checking to see if it contains all elements.
-                            if (songData.length == 3) {
-                                songTitle = songData[0];
-                                songArtist = songData[1];
-                                songDuration = Integer.parseInt(songData[2]);
+                        // Split by spaces.
+                        String[] songData = songInfo.split(", ");
 
-                                // Reference instance.
-                                Song newSong = 
-                                        new Song(songTitle, songArtist, songDuration);
-                                // Add song.
-                                user.addSong(newSong);
-                                System.out.println("New song has been added to playlist!");
-                                System.out.println();
+                        // Checking to see if it contains all elements.
+                        if (songData.length == 3) {
+                            songTitle = songData[0];
+                            songArtist = songData[1];
+                            songDuration = Integer.parseInt(songData[2]);
 
-                                // Display current playlist.
-                                System.out.println("Title: " + songTitle);
-                                System.out.println("Artist: " + songArtist);
-                                System.out.println("Duration: " + songDuration);
-                                System.out.println();
-                            } else {
-                                System.out.print("Invalid details, song has not");
-                                System.out.println(" been added.");
-                            }
+                            // Reference instance.
+                            Song newSong = 
+                                    new Song(songTitle, songArtist, songDuration);
+                            // Add song.
+                            user.addSong(newSong);
+                            System.out.println("New song has been added to playlist!");
+                            System.out.println();
+
+                            // Display current playlist.
+                            System.out.println("Title: " + songTitle);
+                            System.out.println("Artist: " + songArtist);
+                            System.out.println("Duration: " + songDuration);
+                            System.out.println();
+                        } else {
+                            System.out.print("Invalid details, song has not");
+                            System.out.println(" been added.");
+                        }
                         }
                         else {
                             System.out.println("Invalid, please choose either or option.");
@@ -144,8 +163,8 @@ public class Main {
                         System.out.println("Please enter valid input");
                     }
                     
-                } while (userChoice != 0);
-                userInput.close();
+            } while (userChoice != 0);
+            userInput.close();
             }
 
             // Closes scanner & writer.
@@ -157,4 +176,3 @@ public class Main {
         }
     }
 }
-
