@@ -31,6 +31,12 @@ public class Main {
             // Create PrintWriter object to write to file.
             final PrintWriter write = new PrintWriter(fW);
 
+            // Creating new instance.
+            User user = new User("Sandy");
+
+            // Creating new instance.
+            Playlist playlist = new Playlist();
+
             while (sc.hasNextLine()) {
                 // Read line as string.
                 final String newLine = sc.nextLine();
@@ -60,12 +66,6 @@ public class Main {
 
                 // Creating instance.
                 Song song = new Song(songTitle, songArtist, songDuration);
-
-                // Creating new instance.
-                User user = new User("Sandy");
-
-                // Creating new instance.
-                Playlist playlist = new Playlist();
 
                 // Call method, add song within playlist class.
                 user.addSong(song);
@@ -97,7 +97,7 @@ public class Main {
                 System.out.println("05 | Backtrack song.");
                 System.out.println("06 | Remove track.");
                 System.out.println("07 | Add song.");
-                System.out.println("0 | Exit program.");
+                System.out.println("0  | Exit program.");
 
                 // Display to user.
                 System.out.print("Enter your choice: ");
@@ -107,7 +107,8 @@ public class Main {
                     // Receive user input & parse input.
                     userChoice = Integer.parseInt(userInput.nextLine());
     
-                    // If statement to execute said options.
+                    // If statement to execute said options &
+                    // calling methods.
                     if (userChoice == 1) {
                         playlist.playCurrentSong();
                     } else if (userChoice == 2) {
@@ -117,8 +118,11 @@ public class Main {
                     } else if (userChoice == 4) {
                         playlist.skipForward();
                     } else if (userChoice == 5) {
-                        // To do.
-
+                        playlist.backTrack();
+                    } else if (userChoice == 6) {
+                        playlist.removeSong();
+                    } else if (userChoice == 0) {
+                        System.out.println("Program is now closing!");
                     } else if (userChoice == 7) {
                         // If user would like to add song, 
                         // assuming valid input.

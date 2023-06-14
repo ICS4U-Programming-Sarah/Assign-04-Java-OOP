@@ -59,14 +59,77 @@ public class Playlist {
         }
     }
 
+    // Method for pausing song.
+    public void pause() {
+        // If statement to pause song.
+        if (!songs.isEmpty()) {
+            System.out.println("Song has been paused!");
+        } else {
+            System.out.print("Seems as there's no songs to");
+            System.out.println(" pause.");
+        }
+    }
+
+    // Method for removing song.
+    public void removeSong() {
+        // Usage of if statement, checking line.
+        if (!songs.isEmpty()) {
+            // Defining range.
+            if (currentIndex >= 0 && currentIndex < songs.size()) {
+                // Reference instance.
+                Song songRemove = songs.remove(currentIndex);
+                System.out.println("Removed song: " + songRemove.getTitle());
+                // Decrement counter.
+                currentIndex--;
+                // Defining range.
+                if (currentIndex >= 0 && currentIndex < songs.size()) {
+                    // Play current song.
+                    playCurrentSong();
+                } else {
+                    System.out.println("There are no more songs in que.");
+                    // Set current index to last song.
+                    currentIndex = songs.size() - 1;
+                }
+            } else {
+                System.out.println("No song is currently playing.");
+            }
+        } else {
+            System.out.println("No songs in the playlist.");
+        }
+    }
+
+    // Method to back track a song.
+    public void backTrack() {
+        if (!songs.isEmpty()) {
+            // Decrement current index.
+            currentIndex--;
+            // Check if the current index is in range of songs
+            if (currentIndex >= 0 && currentIndex < songs.size()) {
+                // Calls method.
+                playCurrentSong();
+            } else {
+                // Display tp user & set current index to last.
+                System.out.println("End of playlist reached.");
+                currentIndex = songs.size() - 1;
+            }
+        } else {
+        // Display to user.
+        System.out.println("No songs in the playlist.");
+    }
+
+    }
+
     // Method to skip forward to the next song
     public void skipForward() {
         if (!songs.isEmpty()) {
-            currentIndex++; // Increment the current index
-            // Check if the current index is within the valid range of songs
+            // Increments current index.
+            currentIndex++;
+            // Check if the current index is in range of songs
             if (currentIndex >= 0 && currentIndex < songs.size()) {
-                playCurrentSong(); // Play the new current song
+                // Calls method.
+                playCurrentSong();
             } else {
+                // Display to user & set current index to last.
                 System.out.println("End of playlist reached.");
                 currentIndex = songs.size() - 1; // Set the current index to the last song
             }
