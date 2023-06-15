@@ -44,6 +44,12 @@ public class Playlist {
     // Define method.
     public void setSongs(List<Song> songs) {
         this.songs = songs;
+        currentIndex = 0;
+    }
+
+    // Define method.
+    public int getCurrentIndex() {
+        return currentIndex;
     }
 
     // Defining method.
@@ -56,6 +62,8 @@ public class Playlist {
         // song.
         if (!songs.isEmpty()) {
             playCurrentSong();
+        } else {
+            System.out.println("No songs to repeat!");
         }
     }
 
@@ -64,6 +72,7 @@ public class Playlist {
         // If statement to pause song.
         if (!songs.isEmpty()) {
             System.out.println("Song has been paused!");
+            System.out.println();
         } else {
             System.out.print("Seems as there's no songs to");
             System.out.println(" pause.");
@@ -79,6 +88,8 @@ public class Playlist {
                 // Reference instance.
                 Song songRemove = songs.remove(currentIndex);
                 System.out.println("Removed song: " + songRemove.getTitle());
+                System.out.println();
+                System.out.println();
                 // Decrement counter.
                 currentIndex--;
                 // Defining range.
@@ -87,14 +98,17 @@ public class Playlist {
                     playCurrentSong();
                 } else {
                     System.out.println("There are no more songs in que.");
+                    System.out.println();
                     // Set current index to last song.
                     currentIndex = songs.size() - 1;
                 }
             } else {
                 System.out.println("No song is currently playing.");
+                System.out.println();
             }
         } else {
             System.out.println("No songs in the playlist.");
+            System.out.println();
         }
     }
 
@@ -111,10 +125,12 @@ public class Playlist {
                 // Display tp user & set current index to last.
                 System.out.println("End of playlist reached.");
                 currentIndex = songs.size() - 1;
+                System.out.println();
             }
         } else {
         // Display to user.
         System.out.println("No songs in the playlist.");
+        System.out.println();
     }
 
     }
@@ -131,34 +147,39 @@ public class Playlist {
             } else {
                 // Display to user & set current index to last.
                 System.out.println("End of playlist reached.");
-                currentIndex = songs.size() - 1; // Set the current index to the last song
+                currentIndex = songs.size() - 1;
+                System.out.println();
             }
     } else {
         System.out.println("No songs in the playlist.");
+        System.out.println();
     }
 }
 
     // Method for playing current song.
     public void playSong() {
         // Usage of if statement to play current song.
-        if (currentIndex >= 0 && currentIndex < songs.size()) {
+        if (currentSong != null) {
             Song currentSong = songs.get(currentIndex);
-            System.out.println("Now playing...");
-            System.out.println("Title: " + currentSong.getTitle());
-            System.out.println("Artist: " + currentSong.getArtist());
-            System.out.println("Duration: "
-                + currentSong.getDuration() + " seconds");
+            System.out.println("Now playing..." + currentSong.getTitle() + " by "
+                    + currentSong.getArtist()
+                    + " for " + currentSong.getDuration()
+                    + " seconds.");
             System.out.println();
         } else {
             System.out.println("No song is currently playing.");
         }
     }
-
     // Define method to shuffle playlist.
     public void shufflePlaylist() {
         // If statement to shuffle playlist.
-        if (!songs.isEmpty()) {
-            // Declare variable.
+        if (songs.isEmpty()) {
+            System.out.println("Playlist is empty. No songs to shuffle.");
+            System.out.println();
+            return; // Exit the method if the playlist is empty
+
+        }
+        // Declare variable.
             int length = songs.size();
             Random random = new Random();
 
@@ -174,9 +195,16 @@ public class Playlist {
                 songs.set(counter, songs.get(counter1));
                 songs.set(counter1, temp);
             }
-        }
         // Resets.
         currentIndex = 0;
+        // Play new shuffle.
+        currentSong = songs.get(currentIndex);
+        playCurrentSong();
+            System.out.println("Now playing..." + currentSong.getTitle() + " by "
+                    + currentSong.getArtist()
+                    + " for " + currentSong.getDuration()
+                    + " seconds.");
+        
 
     }
     // Method for playing current song.
@@ -184,13 +212,14 @@ public class Playlist {
         if (!songs.isEmpty()) {
             if (currentIndex >= 0 && currentIndex < songs.size()) {
                 Song currentSong = songs.get(currentIndex);
-                System.out.println("Now playing:");
-                System.out.println("Title: " + currentSong.getTitle());
-                System.out.println("Artist: " + currentSong.getArtist());
-                System.out.println("Duration: " + currentSong.getDuration() + " seconds");
+                System.out.println("Now playing..." + currentSong.getTitle() + " by "
+                    + currentSong.getArtist()
+                    + " for " + currentSong.getDuration()
+                    + " seconds.");
                 System.out.println();
             } else {
                 System.out.println("No song is currently playing.");
+                System.out.println();
             }
         }
     }

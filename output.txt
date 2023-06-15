@@ -1,0 +1,30 @@
+Title: Fever
+Artist: Enhypen
+Duration: 200
+
+New song has been added to playlist!
+
+Title: me
+Artist: 6
+Duration: 7
+
+New song has been added to playlist!
+
+Title: mw
+Artist: bw
+Duration: 8
+
+New song has been added to playlist!
+
+Title: mw
+Artist: b
+Duration: 99
+
+New song has been added to playlist!
+
+Title: mw
+Artist: y
+Duration: 15
+
+Program is now closing!
+

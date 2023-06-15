@@ -37,6 +37,15 @@ public class Main {
             // Creating new instance.
             Playlist playlist = new Playlist();
 
+            // Create scanner object to read input & declare variable.
+            Scanner userInput = new Scanner(System.in);
+            int userChoice = 0;
+            String songTitle = "";
+            String songArtist = "";
+            int songDuration = 0;
+            int currentIndex = -1;
+            boolean isSongAdded = false; // Flag to track if a song has been added
+
             while (sc.hasNextLine()) {
                 // Read line as string.
                 final String newLine = sc.nextLine();
@@ -44,17 +53,13 @@ public class Main {
                 // In case of user entering empty line,
                 // display no strings found.
                 if (newLine.equals("")) {
+                    write.println("No strings found on line.");
                     System.out.println("No data found on line.");
                     continue;
                 }
 
                 // Declare array & variable.
                 final String[] dataPlaylist = newLine.split(" ");
-                String songTitle = "";
-                String songArtist = "";
-                int songDuration = 0;
-
-                // Create new instance.
 
                 // Checking if line contains all element.
                 if (dataPlaylist.length == 3) {
@@ -67,26 +72,29 @@ public class Main {
                 // Creating instance.
                 Song song = new Song(songTitle, songArtist, songDuration);
 
+
                 // Call method, add song within playlist class.
                 user.addSong(song);
-
-                // Pass the songs from the User class to the Playlist class
-                playlist.setSongs(user.getSongs());
 
                 // Display to user.
                 System.out.println("Title: " + songTitle);
                 System.out.println("Artist: " + songArtist);
                 System.out.println("Duration: " + songDuration);
+                System.out.println();
+                
+                // Write to file.
+                write.println("Title: " + songTitle);
+                write.println("Artist: " + songArtist);
+                write.println("Duration: " + songDuration);
+                write.println();
 
-                // Create scanner object to read input & declare variable.
-                Scanner userInput = new Scanner(System.in);
-                int userChoice = 0;
+                isSongAdded = true; // Set the flag to true when a song is added
+                currentIndex = 0; // Set currentIndex to 0 when a song is added
 
+            }
+            playlist.setSongs(user.getSongs());
             // Usage of loop to execute the many options.
             do {
-                // Play the current song
-                playlist.playCurrentSong();
-
                 // Display choices to user.
                 System.out.print("Here are the choices you may");
                 System.out.println(" execute on playlist!");
@@ -97,7 +105,9 @@ public class Main {
                 System.out.println("05 | Backtrack song.");
                 System.out.println("06 | Remove track.");
                 System.out.println("07 | Add song.");
+                System.out.println("08 | Pause song.");
                 System.out.println("0  | Exit program.");
+                System.out.println();
 
                 // Display to user.
                 System.out.print("Enter your choice: ");
@@ -110,22 +120,47 @@ public class Main {
                     // If statement to execute said options &
                     // calling methods.
                     if (userChoice == 1) {
-                        playlist.playCurrentSong();
+                        if (currentIndex >= 0 && currentIndex < user.getSongs().size()) {
+                            Song currentSong;
+                            if (isSongAdded) {
+                                currentSong = 
+                                    user.getSongs()
+                                        .get(user.getSongs().size() - 1);
+                            } else {
+                                currentSong = 
+                                    user.getSongs().get(currentIndex); // Get the song at the current index
+                            }
+                            System.out.println("Now playing..."
+                                + currentSong.getTitle() + " by "
+                                + currentSong.getArtist() + " for "
+                                + currentSong.getDuration()
+                                + " seconds.");
+                            System.out.println();
+                            // Add logic to play the song here
+                    } else {
+                        System.out.println("No song has been added.");
+                        System.out.println();
+                    }
                     } else if (userChoice == 2) {
-                            playlist.setShuffle(true);
+                        playlist.setShuffle(true);
                     } else if (userChoice == 3) {
-                            playlist.repeatCurrentSong();
+                        playlist.repeatCurrentSong();
                     } else if (userChoice == 4) {
                         playlist.skipForward();
                     } else if (userChoice == 5) {
                         playlist.backTrack();
                     } else if (userChoice == 6) {
                         playlist.removeSong();
+                    } else if (userChoice == 8) {
+                        playlist.pause();
                     } else if (userChoice == 0) {
                         System.out.println("Program is now closing!");
+                        write.println("Program is now closing!");
+                        write.println();
                     } else if (userChoice == 7) {
                         // If user would like to add song, 
                         // assuming valid input.
+                        System.out.println();
                         System.out.print("Enter song details ");
                         System.out.println("(title, artist, duration): ");
 
@@ -142,37 +177,52 @@ public class Main {
                             songDuration = Integer.parseInt(songData[2]);
 
                             // Reference instance.
-                            Song newSong = 
-                                    new Song(songTitle, songArtist, songDuration);
+                            Song newSong = new Song(songTitle, songArtist, songDuration);
                             // Add song.
                             user.addSong(newSong);
                             System.out.println("New song has been added to playlist!");
                             System.out.println();
+
+                            
+                            // Write to file.
+                            write.println("New song has been added to playlist!");
+                            write.println();
 
                             // Display current playlist.
                             System.out.println("Title: " + songTitle);
                             System.out.println("Artist: " + songArtist);
                             System.out.println("Duration: " + songDuration);
                             System.out.println();
+
+                            // Write to file.
+                            write.println("Title: " + songTitle);
+                            write.println("Artist: " + songArtist);
+                            write.println("Duration: " + songDuration);
+                            write.println();
                         } else {
                             System.out.print("Invalid details, song has not");
                             System.out.println(" been added.");
+                            write.println("Invalid, details, song not added.");
+                            write.println();
                         }
-                        }
-                        else {
-                            System.out.println("Invalid, please choose either or option.");
-                        }
+                    } else {
+                         System.out.println("Invalid, please choose either or option.");
+                        write.println("Invalid, please choose valid option.");
+                        write.println();
+                    }
 
                     } catch (NumberFormatException E) {
-                        System.out.println("Please enter valid input");
+                        System.out.println("Please enter valid input.");
+                        write.println("Please enter valid input.");
+                        write.println();
                     }
                     
-            } while (userChoice != 0);
+                } while (userChoice != 0);
             userInput.close();
-            }
 
             // Closes scanner & writer.
             sc.close();
+            write.close();
         } catch (IOException error) {
             // Displays error to user.
             System.out.println("An error occurred: "

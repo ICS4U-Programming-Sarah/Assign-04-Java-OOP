@@ -38,6 +38,7 @@ public class User {
         songs.add(song);
         if (currentIndex == -1) {
             currentIndex = 0;
+            currentSong = song;
         }
         // Display to user song has been added.
         System.out.println("Song has been added!");
