@@ -13,18 +13,18 @@ import java.util.List;
  */
 
 public class User {
-    // Declaring instance.
+    // Declaring instance & fields..
     private List<Song> songs;
     String _name;
-    Song currentSong;
-    int currentIndex;
+    Song _currentSong;
+    int _currentIndex;
 
     // Creates constructor.
     public User(String name) {
         this._name = name;
         this.songs = new ArrayList<>();
-        this.currentSong = null;
-        this.currentIndex = -1;
+        this._currentSong = null;
+        this._currentIndex = -1;
     }
 
     // Define method.
@@ -36,13 +36,12 @@ public class User {
     public void addSong(Song song) {
         // Adding new song.
         songs.add(song);
-        if (currentIndex == -1) {
-            currentIndex = 0;
-            currentSong = song;
+        if (_currentIndex == -1) {
+            _currentIndex = 0;
+            _currentSong = song;
         }
         // Display to user song has been added.
         System.out.println("Song has been added!");
-        
     }
 
 }
