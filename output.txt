@@ -2,13 +2,21 @@ Title: Fever
 Artist: Enhypen
 Duration: 200
 
-Invalid, details, song not added.
+New song has been added to playlist!
+
+Title: Fate
+Artist: Enhypen
+Duration: 170
+
+Please enter valid input.
 
 New song has been added to playlist!
 
 Title: Karma
-Artist: T
-Duration: 167
+Artist: Tay
+Duration: 190
+
+Please enter valid input.
 
 Program is now closing!
 

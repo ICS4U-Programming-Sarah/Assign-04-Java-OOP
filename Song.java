@@ -33,7 +33,7 @@ public class Song {
     public String getArtist() {
         return _songArtist;
     }
-    
+
     // Creating method to access.
     public int getDuration() {
         return _songDuration;

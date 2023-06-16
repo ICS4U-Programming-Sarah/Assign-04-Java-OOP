@@ -2,8 +2,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -44,7 +42,7 @@ public class Main {
             String songArtist = "";
             int songDuration = 0;
             int currentIndex = -1;
-            boolean isSongAdded = false; // Flag to track if a song has been added
+            boolean isSongAdded = false;
 
             while (sc.hasNextLine()) {
                 // Read line as string.
@@ -72,7 +70,6 @@ public class Main {
                 // Creating instance.
                 Song song = new Song(songTitle, songArtist, songDuration);
 
-
                 // Call method, add song within playlist class.
                 user.addSong(song);
 
@@ -81,15 +78,16 @@ public class Main {
                 System.out.println("Artist: " + songArtist);
                 System.out.println("Duration: " + songDuration);
                 System.out.println();
-                
+
                 // Write to file.
                 write.println("Title: " + songTitle);
                 write.println("Artist: " + songArtist);
                 write.println("Duration: " + songDuration);
                 write.println();
 
-                isSongAdded = true; // Set the flag to true when a song is added
-                currentIndex = 0; // Set currentIndex to 0 when a song is added
+                // Set to true when song added & resets index.
+                isSongAdded = true;
+                currentIndex = 0;
 
             }
             playlist.setSongs(user.getSongs());
@@ -116,20 +114,23 @@ public class Main {
                 try {
                     // Receive user input & parse input.
                     userChoice = Integer.parseInt(userInput.nextLine());
-    
+
                     // If statement to execute said options &
                     // calling methods.
                     if (userChoice == 1) {
+                        // Checking to see if song is in range.
                         if (currentIndex >= 0 && currentIndex < user.getSongs().size()) {
                             Song currentSong;
+                            // Adding song to playlist, updating it.
                             if (isSongAdded) {
-                                currentSong = 
+                                currentSong =
                                     user.getSongs()
                                         .get(user.getSongs().size() - 1);
                             } else {
-                                currentSong = 
-                                    user.getSongs().get(currentIndex); // Get the song at the current index
+                                // Gets song at current index.
+                                currentSong = user.getSongs().get(currentIndex);
                             }
+                            // Displays to user.
                             System.out.println("Now playing..."
                                 + currentSong.getTitle() + " by "
                                 + currentSong.getArtist() + " for "
@@ -137,10 +138,10 @@ public class Main {
                                 + " seconds.");
                             System.out.println();
                             // Add logic to play the song here
-                    } else {
-                        System.out.println("No song has been added.");
-                        System.out.println();
-                    }
+                        } else {
+                            System.out.println("No song has been added.");
+                            System.out.println();
+                        }
                     } else if (userChoice == 2) {
                         playlist.setShuffle(true);
                     } else if (userChoice == 3) {
@@ -158,7 +159,7 @@ public class Main {
                         write.println("Program is now closing!");
                         write.println();
                     } else if (userChoice == 7) {
-                        // If user would like to add song, 
+                        // If user would like to add song,
                         // assuming valid input.
                         System.out.println();
                         System.out.print("Enter song details ");
@@ -177,15 +178,15 @@ public class Main {
                             songDuration = Integer.parseInt(songData[2]);
 
                             // Reference instance.
-                            Song newSong = new Song(songTitle, songArtist, songDuration);
+                            Song newSong =
+                                new Song(songTitle, songArtist, songDuration);
                             // Add song.
                             user.addSong(newSong);
                             System.out.println("New song has been added to playlist!");
                             System.out.println();
 
-                            
                             // Write to file.
-                            write.println("New song has been added to playlist!");
+                            write.println("New song has been added!");
                             write.println();
 
                             // Display current playlist.
@@ -206,18 +207,20 @@ public class Main {
                             write.println();
                         }
                     } else {
-                         System.out.println("Invalid, please choose either or option.");
+                        System.out.print("Invalid, please ");
+                        System.out.println(" choose either or option.");
                         write.println("Invalid, please choose valid option.");
                         write.println();
                     }
 
-                    } catch (NumberFormatException E) {
-                        System.out.println("Please enter valid input.");
-                        write.println("Please enter valid input.");
-                        write.println();
-                    }
-                    
-                } while (userChoice != 0);
+                } catch (NumberFormatException E) {
+                    System.out.println("Please enter valid input.");
+                    write.println("Please enter valid input.");
+                    write.println();
+                }
+                // Loop condition.
+            } while (userChoice != 0);
+            // Closes input.
             userInput.close();
 
             // Closes scanner & writer.

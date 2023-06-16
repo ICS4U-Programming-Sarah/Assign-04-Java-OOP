@@ -1,6 +1,6 @@
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * This program contains the Song.
@@ -20,7 +20,6 @@ public class Playlist {
     Song _currentSong;
     int currentIndex;
     boolean _isRepeat = false;
-    
 
     // Create constructors,
     public Playlist() {
@@ -122,16 +121,16 @@ public class Playlist {
                 // Calls method.
                 playCurrentSong();
             } else {
-                // Display tp user & set current index to last.
+                // Display to  user & set current index to last.
                 System.out.println("End of playlist reached.");
                 currentIndex = _songs.size() - 1;
                 System.out.println();
             }
         } else {
-        // Display to user.
-        System.out.println("No songs in the playlist.");
-        System.out.println();
-    }
+            // Display to user.
+            System.out.println("No songs in the playlist.");
+            System.out.println();
+        }
 
     }
 
@@ -150,69 +149,74 @@ public class Playlist {
                 currentIndex = _songs.size() - 1;
                 System.out.println();
             }
-    } else {
-        System.out.println("No songs in the playlist.");
-        System.out.println();
+        } else {
+            System.out.println("No songs in the playlist.");
+            System.out.println();
+        }
     }
-}
 
     // Method for playing current song.
     public void playSong() {
         // Usage of if statement to play current song.
         if (_currentSong != null) {
             Song currentSong = _songs.get(currentIndex);
-            System.out.println("Now playing..." + currentSong.getTitle() + " by "
-                    + currentSong.getArtist()
-                    + " for " + currentSong.getDuration()
-                    + " seconds.");
+            System.out.println("Now playing..." + currentSong.getTitle()
+                + " by "
+                + currentSong.getArtist()
+                + " for " + currentSong.getDuration()
+                + " seconds.");
             System.out.println();
         } else {
             System.out.println("No song is currently playing.");
         }
     }
+
     // Define method to shuffle playlist.
     public void shufflePlaylist() {
         // If statement to shuffle playlist.
         if (_songs.isEmpty()) {
             System.out.println("Playlist is empty. No songs to shuffle.");
             System.out.println();
-            return; // Exit the method if the playlist is empty
+            // Exiting if playlist is empty.
+            return;
 
         }
         // Declare variable.
-            int length = _songs.size();
-            Random random = new Random();
+        final int length = _songs.size();
+        final Random random = new Random();
 
-            // Usage of loop to shuffle song,
-            // iterating over last element to
-            // first to generate random index.
-            for (int counter = length - 1; counter > 0; counter--) {
-                // Declare variable & set.
-                int counter1 = random.nextInt(counter + 1);
+        // Usage of loop to shuffle song,
+        // iterating over last element to
+        // first to generate random index.
+        for (int counter = length - 1; counter > 0; counter--) {
+            // Declare variable & set.
+            final int counter1 = random.nextInt(counter + 1);
 
-                // Swap songs at indexes.
-                Song temp = _songs.get(counter);
-                _songs.set(counter, _songs.get(counter1));
-                _songs.set(counter1, temp);
-            }
+            // Swap songs at indexes.
+            final Song temp = _songs.get(counter);
+            _songs.set(counter, _songs.get(counter1));
+            _songs.set(counter1, temp);
+        }
         // Resets.
         currentIndex = 0;
         // Play new shuffle.
         _currentSong = _songs.get(currentIndex);
         playCurrentSong();
-            System.out.println("Now playing..." + _currentSong.getTitle() + " by "
-                    + _currentSong.getArtist()
-                    + " for " + _currentSong.getDuration()
-                    + " seconds.");
-        
-
+        System.out.println("Now playing..."
+            + _currentSong.getTitle() + " by "
+            + _currentSong.getArtist()
+            + " for " + _currentSong.getDuration()
+            + " seconds.");
     }
     // Method for playing current song.
     public void playCurrentSong() {
+        // Checking to see if list is empty.
         if (!_songs.isEmpty()) {
+            // Defining range & display to user.
             if (currentIndex >= 0 && currentIndex < _songs.size()) {
                 Song currentSong = _songs.get(currentIndex);
-                System.out.println("Now playing..." + currentSong.getTitle() + " by "
+                System.out.println("Now playing..."
+                    + currentSong.getTitle() + " by "
                     + currentSong.getArtist()
                     + " for " + currentSong.getDuration()
                     + " seconds.");
