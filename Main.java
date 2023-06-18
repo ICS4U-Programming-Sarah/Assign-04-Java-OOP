@@ -27,13 +27,13 @@ public class Main {
             // Create Scanner object to read from file.
             final Scanner sc = new Scanner(file);
             // Create PrintWriter object to write to file.
-            final PrintWriter write = new PrintWriter(fW);
+            final PrintWriter writer = new PrintWriter(fW);
 
             // Creating new instance.
             User user = new User("Sandy");
 
             // Creating new instance.
-            Playlist playlist = new Playlist();
+            Playlist playlist = new Playlist(writer);
 
             // Create scanner object to read input & declare variable.
             Scanner userInput = new Scanner(System.in);
@@ -51,7 +51,7 @@ public class Main {
                 // In case of user entering empty line,
                 // display no strings found.
                 if (newLine.equals("")) {
-                    write.println("No strings found on line.");
+                    writer.println("No strings found on line.");
                     System.out.println("No data found on line.");
                     continue;
                 }
@@ -80,10 +80,10 @@ public class Main {
                 System.out.println();
 
                 // Write to file.
-                write.println("Title: " + songTitle);
-                write.println("Artist: " + songArtist);
-                write.println("Duration: " + songDuration);
-                write.println();
+                writer.println("Title: " + songTitle);
+                writer.println("Artist: " + songArtist);
+                writer.println("Duration: " + songDuration);
+                writer.println();
 
                 // Set to true when song added & resets index.
                 isSongAdded = true;
@@ -156,8 +156,8 @@ public class Main {
                         playlist.pause();
                     } else if (userChoice == 0) {
                         System.out.println("Program is now closing!");
-                        write.println("Program is now closing!");
-                        write.println();
+                        writer.println("Program is now closing!");
+                        writer.println();
                     } else if (userChoice == 7) {
                         // If user would like to add song,
                         // assuming valid input.
@@ -186,8 +186,8 @@ public class Main {
                             System.out.println();
 
                             // Write to file.
-                            write.println("New song has been added!");
-                            write.println();
+                            writer.println("New song has been added!");
+                            writer.println();
 
                             // Display current playlist.
                             System.out.println("Title: " + songTitle);
@@ -196,36 +196,35 @@ public class Main {
                             System.out.println();
 
                             // Write to file.
-                            write.println("Title: " + songTitle);
-                            write.println("Artist: " + songArtist);
-                            write.println("Duration: " + songDuration);
-                            write.println();
+                            writer.println("Title: " + songTitle);
+                            writer.println("Artist: " + songArtist);
+                            writer.println("Duration: " + songDuration);
+                            writer.println();
                         } else {
                             System.out.print("Invalid details, song has not");
                             System.out.println(" been added.");
-                            write.println("Invalid, details, song not added.");
-                            write.println();
+                            writer.println("Invalid, details, song not added.");
+                            writer.println();
                         }
                     } else {
                         System.out.print("Invalid, please ");
                         System.out.println(" choose either or option.");
-                        write.println("Invalid, please choose valid option.");
-                        write.println();
+                        writer.println("Invalid, please choose valid option.");
+                        writer.println();
                     }
 
                 } catch (NumberFormatException E) {
                     System.out.println("Please enter valid input.");
-                    write.println("Please enter valid input.");
-                    write.println();
+                    writer.println("Please enter valid input.");
+                    writer.println();
                 }
                 // Loop condition.
             } while (userChoice != 0);
             // Closes input.
             userInput.close();
-
             // Closes scanner & writer.
             sc.close();
-            write.close();
+            writer.close();
         } catch (IOException error) {
             // Displays error to user.
             System.out.println("An error occurred: "

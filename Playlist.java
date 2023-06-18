@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.io.PrintWriter;
 import java.util.Random;
 
 /**
@@ -20,14 +21,16 @@ public class Playlist {
     Song _currentSong;
     int currentIndex;
     boolean _isRepeat = false;
+    PrintWriter _writer;
 
     // Create constructors,
-    public Playlist() {
+    public Playlist(PrintWriter write) {
         this._isShuffle = false;
         this._songs = new ArrayList<>();
         this._currentSong = null;
         this.currentIndex = -1;
         this._isRepeat = false;
+        this._writer = write;
     }
 
     // Declare method.
@@ -62,7 +65,11 @@ public class Playlist {
         if (!_songs.isEmpty()) {
             playCurrentSong();
         } else {
+            // Displaying to console & writing to
+            // file.
             System.out.println("No songs to repeat!");
+            _writer.println("No songs to repeat!");
+            _writer.println();
         }
     }
 
@@ -72,9 +79,16 @@ public class Playlist {
         if (!_songs.isEmpty()) {
             System.out.println("Song has been paused!");
             System.out.println();
+
+            // Writing to file.
+            _writer.println("Song has been paused!");
+            _writer.println();
+
         } else {
             System.out.print("Seems as there's no songs to");
             System.out.println(" pause.");
+            _writer.println("Seem as there's no song to "
+             + " pause.");
         }
     }
 
@@ -89,6 +103,7 @@ public class Playlist {
                 System.out.println("Removed song: " + songRemove.getTitle());
                 System.out.println();
                 System.out.println();
+                _writer.println("Removed song: " + songRemove.getTitle());
                 // Decrement counter.
                 currentIndex--;
                 // Defining range.
@@ -96,18 +111,24 @@ public class Playlist {
                     // Play current song.
                     playCurrentSong();
                 } else {
-                    System.out.println("There are no more songs in que.");
+                    System.out.println("Removing in process!");
                     System.out.println();
+                    _writer.println("Removing in process!");
+                    _writer.println();
                     // Set current index to last song.
                     currentIndex = _songs.size() - 1;
                 }
             } else {
                 System.out.println("No song is currently playing.");
                 System.out.println();
+                _writer.println("No song is currently playing.");
+                _writer.println();
             }
         } else {
             System.out.println("No songs in the playlist.");
             System.out.println();
+            _writer.println("No songs in the playlist.");
+            _writer.println();
         }
     }
 
@@ -120,16 +141,22 @@ public class Playlist {
             if (currentIndex >= 0 && currentIndex < _songs.size()) {
                 // Calls method.
                 playCurrentSong();
+                System.out.println("Back track has commenced.");
+                System.out.println();
+                _writer.println("Back track has commenced");
+                _writer.println();
             } else {
                 // Display to  user & set current index to last.
                 System.out.println("End of playlist reached.");
                 currentIndex = _songs.size() - 1;
                 System.out.println();
+                _writer.println("End of playlist reached.");
             }
         } else {
             // Display to user.
             System.out.println("No songs in the playlist.");
             System.out.println();
+            _writer.println("No songs in the playlist.");
         }
 
     }
@@ -143,15 +170,22 @@ public class Playlist {
             if (currentIndex >= 0 && currentIndex < _songs.size()) {
                 // Calls method.
                 playCurrentSong();
+                System.out.println("Skipping forward has occurred.");
+                System.out.println();
+                _writer.println("Skipping forward has occurred.");
+                _writer.println();
             } else {
                 // Display to user & set current index to last.
                 System.out.println("End of playlist reached.");
                 currentIndex = _songs.size() - 1;
                 System.out.println();
+                _writer.println("Skipped forward! " +
+                    " End of playlist reached.");
             }
         } else {
             System.out.println("No songs in the playlist.");
             System.out.println();
+            _writer.println("No songs in the playlist.");
         }
     }
 
@@ -166,8 +200,14 @@ public class Playlist {
                 + " for " + currentSong.getDuration()
                 + " seconds.");
             System.out.println();
+            _writer.println("Now playing..." + currentSong.getTitle()
+                + " by "
+                + currentSong.getArtist()
+                + " for " + currentSong.getDuration()
+                + " seconds.");
         } else {
             System.out.println("No song is currently playing.");
+            _writer.println("No song is currently playing.");
         }
     }
 
@@ -177,6 +217,7 @@ public class Playlist {
         if (_songs.isEmpty()) {
             System.out.println("Playlist is empty. No songs to shuffle.");
             System.out.println();
+            _writer.println("Playlist is empty. No songs to shuffle.");
             // Exiting if playlist is empty.
             return;
 
@@ -202,7 +243,15 @@ public class Playlist {
         // Play new shuffle.
         _currentSong = _songs.get(currentIndex);
         playCurrentSong();
+        System.out.println("Shuffled!");
+        _writer.println("Shuffled!");
+        _writer.println();
         System.out.println("Now playing..."
+            + _currentSong.getTitle() + " by "
+            + _currentSong.getArtist()
+            + " for " + _currentSong.getDuration()
+            + " seconds.");
+        _writer.println("Now playing..."
             + _currentSong.getTitle() + " by "
             + _currentSong.getArtist()
             + " for " + _currentSong.getDuration()
@@ -221,9 +270,16 @@ public class Playlist {
                     + " for " + currentSong.getDuration()
                     + " seconds.");
                 System.out.println();
+                _writer.println("Now playing..."
+                    + currentSong.getTitle() + " by "
+                    + currentSong.getArtist()
+                    + " for " + currentSong.getDuration()
+                    + " seconds.");
             } else {
                 System.out.println("No song is currently playing.");
                 System.out.println();
+                _writer.println("No song is currently playing.");
+                _writer.println();
             }
         }
     }
